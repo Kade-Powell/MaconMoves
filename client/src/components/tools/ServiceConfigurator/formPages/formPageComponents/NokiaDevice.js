@@ -91,7 +91,7 @@ const NokiaDevice = ({ props, ipAddress }) => {
             </Row>
             <Row>
               <Col>
-                {' '}
+                <FormText> SDP 1</FormText>
                 <select
                   className='form-control form-control-sm'
                   id='sdp1Destination'
@@ -107,7 +107,7 @@ const NokiaDevice = ({ props, ipAddress }) => {
               </Col>
 
               <Col>
-                {' '}
+                <FormText> SDP 2</FormText>
                 <select
                   className='form-control form-control-sm'
                   id='sdp2Destination'

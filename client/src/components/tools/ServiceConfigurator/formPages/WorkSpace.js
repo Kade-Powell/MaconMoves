@@ -16,7 +16,7 @@ const WorkSpace = ({ props, next, back }) => {
       <h3 className='text-primary'>User WorkSpace</h3>
       <Label for='deviceToAdd'> Add A Device</Label>
 
-      <div class='input-group mb-3'>
+      <div className='input-group mb-3'>
         <input
           type='text'
           className='form-control'

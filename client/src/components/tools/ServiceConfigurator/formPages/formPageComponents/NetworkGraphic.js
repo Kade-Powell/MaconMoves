@@ -1,17 +1,18 @@
 import React from 'react';
 import { Graph } from 'react-d3-graph';
 import Router from '../../../../../img/router.png';
-import { matchedData } from 'express-validator';
+import Port from '../../../../../img/port.png';
 
 const NetworkGraphic = ({ props }) => {
-  let initialX = 400;
+  let initialX = 350;
 
+  //adding routers to nodes
   const nodes = Object.values(props.serviceConfigForm.deviceVars).map(
     (data) => {
-      return { id: data.ipAddress, x: (initialX += 50), y: 150 };
+      return { id: data.ipAddress, x: (initialX += 35), y: 150 };
     }
   );
-  console.log(`nodes = ${nodes}`);
+
   let links = [];
   Object.values(props.serviceConfigForm.deviceVars).forEach((device) => {
     nodes.forEach((node) => {
@@ -28,6 +29,39 @@ const NetworkGraphic = ({ props }) => {
         });
       }
     });
+  });
+
+  //adding saps to nodes
+  Object.values(props.serviceConfigForm.deviceVars).map((data) => {
+    if (data.isTerminating === 'true' && data.terminatingPort) {
+      if (data.vlan) {
+        nodes.push({
+          id: data.terminatingPort + ':' + data.vlan,
+          svg: Port,
+          size: 200,
+          x: (initialX -= 35),
+          y: 150,
+        });
+        links.push({
+          source: data.ipAddress,
+          target: data.terminatingPort + ':' + data.vlan,
+          type: 'STRAIGHT',
+        });
+      } else {
+        nodes.push({
+          id: data.terminatingPort,
+          svg: Port,
+          size: 200,
+          x: (initialX -= 35),
+          y: 150,
+        });
+        links.push({
+          source: data.ipAddress,
+          target: data.terminatingPort,
+          type: 'STRAIGHT',
+        });
+      }
+    }
   });
 
   const data = {
@@ -58,7 +92,7 @@ const NetworkGraphic = ({ props }) => {
       color: 'grey',
       opacity: 0.7,
       renderLabel: false,
-      strokeWidth: 2,
+      strokeWidth: 1.5,
       markerHeight: 6,
       markerWidth: 6,
     },

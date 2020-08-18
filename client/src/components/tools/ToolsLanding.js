@@ -27,7 +27,7 @@ const ToolsLanding = () => {
           <CardImg top width='100%' src='' />
           <CardBody>
             <CardTitle>Nokia Service Configurator</CardTitle>
-            <CardText>Generate configs for all nokia equipment</CardText>
+            <CardText>Generate service configs Nokia equipment</CardText>
 
             <Link to='/tools/serviceConfigurator'>
               <Button color='primary'>Launch</Button>

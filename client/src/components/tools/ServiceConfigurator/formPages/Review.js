@@ -11,18 +11,28 @@ export const Review = ({ props, next, back }) => {
             <pre>{JSON.stringify(props.serviceConfigForm, null, 2)}</pre>
           </Col>
         </Row>
-        <Col className='text-left'>
-          {' '}
-          <button type='button' onClick={back} className='btn btn-primary my-2'>
-            Back
-          </button>
-        </Col>
-        <Col className='text-right'>
-          {' '}
-          <button type='button' onClick={next} className='btn btn-primary my-2'>
-            Next
-          </button>
-        </Col>
+        <Row>
+          <Col className='text-left'>
+            {' '}
+            <button
+              type='button'
+              onClick={back}
+              className='btn btn-secondary my-2'
+            >
+              Back
+            </button>
+          </Col>
+          <Col className='text-right'>
+            {' '}
+            <button
+              type='button'
+              onClick={next}
+              className='btn btn-primary my-2'
+            >
+              Next
+            </button>
+          </Col>
+        </Row>
       </form>
     </Container>
   );

@@ -1,6 +1,6 @@
 import * as actions from './types';
 import { getMatchingIp } from '../../src/utils/helperFunctions';
-import axios from 'axios';
+// import axios from 'axios';
 
 //next step
 export const nextStep = (step) => (dispatch) => {

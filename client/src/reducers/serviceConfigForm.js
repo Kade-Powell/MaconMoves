@@ -47,6 +47,20 @@ export default function (state = initialState, action) {
         deviceVars: newObj,
       };
     case actions.DEVICE_VAR_CHANGE:
+      if (payload.key === 'deviceType') {
+        return {
+          ...state,
+          deviceVars: {
+            ...state.deviceVars,
+            [payload.ipAddress]: {
+              ...state.deviceVars[payload.ipAddress],
+              [payload.key]: payload.value,
+              ingressQos: '',
+              egressQos: '',
+            },
+          },
+        };
+      }
       return {
         ...state,
         deviceVars: {

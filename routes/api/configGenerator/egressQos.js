@@ -23,11 +23,16 @@ router.get('/', auth, async (req, res) => {
 });
 
 //@route    GET api/configGenerator/egressQos/:eqType
-//@desc     Gets Ingress Qos Policy eq type in the name
+//@desc     Gets Egress Qos Policy eq type in the name
 //@access   Private
 router.get('/:eqType', auth, async (req, res) => {
   if (req.params.eqType.includes('7210K')) {
     req.params.eqType = '7210K';
+  }
+  if (req.params.eqType === '7210M') {
+    return res.status(404).json({
+      msg: 'EQ type 7210M has no egress policies',
+    });
   }
   try {
     console.log(req.params.eqType);
@@ -57,15 +62,20 @@ router.get('/:eqType', auth, async (req, res) => {
 //@desc     Gets Ingress Qos Policy by eq type in the name and the COS from the name
 //@access   Private
 router.get('/:eqType/:cos', auth, async (req, res) => {
-  if (req.params.eqType.includes('7210K')) {
-    req.params.eqType = '7210K';
-  }
   try {
+    if (req.params.eqType.includes('7210K')) {
+      req.params.eqType = '7210K';
+    }
+    if (req.params.eqType === '7210M') {
+      return res.status(404).json({
+        msg: 'EQ type 7210M has no egress policies',
+      });
+    }
     const policy = await EgressQos.find({
       policyName: { $regex: `.*${req.params.eqType}.*${req.params.cos}.*` },
     });
 
-    if (policy.length == 0) {
+    if (policy.length === 0) {
       return res.status(404).json({
         msg: 'QOS Policy Not Found, Please Check Your Query Parameters',
       });

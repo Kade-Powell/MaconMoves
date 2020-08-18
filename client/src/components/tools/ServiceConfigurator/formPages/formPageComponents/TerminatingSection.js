@@ -17,9 +17,10 @@ export const TerminatingSection = ({
             className='form-control form-control-sm'
             id='classOfService'
             name='classOfService'
-            value={deviceVars.classOfService || 'BestEffort-BE'}
+            value={deviceVars.classOfService || ''}
             onChange={handleDeviceVarChange}
           >
+            <option value=''>Select</option>
             <option value='BestEffort-BE'>Best Effort</option>
             <option value='Priority-L2'>Priority</option>
             <option value='RealTime-L1'>Real Time</option>
@@ -36,7 +37,15 @@ export const TerminatingSection = ({
             onChange={handleDeviceVarChange}
             value={deviceVars.ingressQos || ''}
           >
-            <QosSelector deviceType={deviceVars.deviceType} />
+            {deviceVars.classOfService && deviceVars.deviceType ? (
+              <QosSelector
+                qosType='ingressQos'
+                classOfService={deviceVars.classOfService}
+                deviceType={deviceVars.deviceType}
+              />
+            ) : (
+              ''
+            )}
           </select>
         </Col>
         <Col>
@@ -48,7 +57,15 @@ export const TerminatingSection = ({
             onChange={handleDeviceVarChange}
             value={deviceVars.egressQos || ''}
           >
-            <QosSelector deviceType={deviceVars.deviceType} />
+            {deviceVars.classOfService && deviceVars.deviceType ? (
+              <QosSelector
+                qosType='egressQos'
+                classOfService={deviceVars.classOfService}
+                deviceType={deviceVars.deviceType}
+              />
+            ) : (
+              ''
+            )}
           </select>
         </Col>
       </Row>

@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Col, Row } from 'reactstrap';
+import React from 'react';
+// import PropTypes from 'prop-types';
+// import { Col, Row } from 'reactstrap';
 import Autosuggest from 'react-autosuggest';
 
 export const Autocomplete = ({ props }) => {

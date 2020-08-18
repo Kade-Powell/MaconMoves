@@ -27,12 +27,15 @@ router.get('/:eqType', auth, async (req, res) => {
     if (req.params.eqType.includes('7210K')) {
       req.params.eqType = '7210K';
     }
+    if (req.params.eqType.includes('7210M')) {
+      req.params.eqType = '7210M';
+    }
     console.log(req.params.eqType);
     const policy = await IngressQos.find({
       policyName: { $regex: `.*${req.params.eqType}.*` },
     });
 
-    if (!policy) {
+    if (policy.length == 0) {
       return res.status(404).json({
         msg: 'QOS Policy Not Found, Please Check Your Query Parameters',
       });
@@ -56,11 +59,14 @@ router.get('/:eqType/:cos', auth, async (req, res) => {
     if (req.params.eqType.includes('7210K')) {
       req.params.eqType = '7210K';
     }
+    if (req.params.eqType.includes('7210M')) {
+      req.params.eqType = '7210M';
+    }
     const policy = await IngressQos.find({
       policyName: { $regex: `.*${req.params.eqType}.*${req.params.cos}.*` },
     });
 
-    if (!policy) {
+    if (policy.length === 0) {
       return res.status(404).json({
         msg: 'QOS Policy Not Found, Please Check Your Query Parameters',
       });

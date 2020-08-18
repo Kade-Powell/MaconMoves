@@ -69,8 +69,6 @@ const NetworkGraphic = ({ props }) => {
     links,
   };
 
-  console.log(`data = ${data}`);
-
   // the graph configuration, you only need to pass down properties
   // that you want to override, otherwise default ones will be used
   const myConfig = {

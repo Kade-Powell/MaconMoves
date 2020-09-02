@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb://admin:1nstallm3@127.0.0.1:8000/MaconMoves?authSource=admin",
+  "jwtSecret": "J@wbone13",
+  "githubClientId": "545ee5109318052037af",
+  "githubSecret": "7618c9482ce434740581ef023e547c7eeadfa41d"
+}

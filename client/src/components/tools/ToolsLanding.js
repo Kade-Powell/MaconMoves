@@ -106,7 +106,7 @@ const ToolsLanding = () => {
                 <a
                   target='_blank'
                   rel='noopener noreferrer'
-                  href='https://cbops.coxmetrics.com/neon/configurators/WEAoHFC/wea-hfc.php'
+                  href='https://cbops.coxmetrics.com/neon/configurators/WEAoHFC/modal.php'
                 >
                   WEA-HFC Config
                 </a>

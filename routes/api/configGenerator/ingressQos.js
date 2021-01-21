@@ -8,7 +8,7 @@ const IngressQos = require('../../../models/IngressQos');
 //@route    GET api/configGenerator/ingressQos/
 //@desc     GET All Qos
 //@access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const policy = await IngressQos.find();
 
@@ -22,7 +22,7 @@ router.get('/', auth, async (req, res) => {
 //@route    GET api/configGenerator/ingressQos/:eqType
 //@desc     Gets Ingress Qos Policy eq type in the name
 //@access   Private
-router.get('/:eqType', auth, async (req, res) => {
+router.get('/:eqType', async (req, res) => {
   try {
     if (req.params.eqType.includes('7210K')) {
       req.params.eqType = '7210K';
@@ -54,7 +54,7 @@ router.get('/:eqType', auth, async (req, res) => {
 //@route    GET api/configGenerator/ingressQos/:eqType/:cos
 //@desc     Gets Ingress Qos Policy by eq type in the name and the COS from the name
 //@access   Private
-router.get('/:eqType/:cos', auth, async (req, res) => {
+router.get('/:eqType/:cos', async (req, res) => {
   try {
     if (req.params.eqType.includes('7210K')) {
       req.params.eqType = '7210K';
@@ -85,18 +85,20 @@ router.get('/:eqType/:cos', auth, async (req, res) => {
 //@route    GET api/configGenerator/ingressQos/:eqType/:cos/:qos
 //@desc     Gets Ingress Qos Policy by eq type,cos, and qos from the name
 //@access   Private
-router.get('/:eqType/:cos/:qos', auth, async (req, res) => {
+router.get('/:eqType/:cos/:qos', async (req, res) => {
+  if (req.params.eqType.includes('7210K')) {
+    req.params.eqType = '7210K';
+  }
+
   try {
-    if (req.params.eqType.includes('7210K')) {
-      req.params.eqType = '7210K';
-    }
+   
     const policy = await IngressQos.find({
       policyName: {
         $regex: `.*${req.params.eqType}.* ${req.params.qos} .*${req.params.cos}.*`,
       },
     });
 
-    if (!policy) {
+    if (policy.length == 0) {
       return res.status(404).json({
         msg: 'QOS Policy Not Found, Please Check Your Query Parameters',
       });

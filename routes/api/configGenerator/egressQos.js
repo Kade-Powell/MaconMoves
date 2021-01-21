@@ -8,7 +8,7 @@ const EgressQos = require('../../../models/EgressQos');
 //@route    GET api/configGenerator/egressQos/
 //@desc     GET All Qos
 //@access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/',  async (req, res) => {
   if (req.params.eqType.includes('7210K')) {
     req.params.eqType = '7210K';
   }
@@ -25,14 +25,9 @@ router.get('/', auth, async (req, res) => {
 //@route    GET api/configGenerator/egressQos/:eqType
 //@desc     Gets Egress Qos Policy eq type in the name
 //@access   Private
-router.get('/:eqType', auth, async (req, res) => {
+router.get('/:eqType',  async (req, res) => {
   if (req.params.eqType.includes('7210K')) {
     req.params.eqType = '7210K';
-  }
-  if (req.params.eqType === '7210M') {
-    return res.status(404).json({
-      msg: 'EQ type 7210M has no egress policies',
-    });
   }
   try {
     console.log(req.params.eqType);
@@ -61,16 +56,12 @@ router.get('/:eqType', auth, async (req, res) => {
 //@route    GET api/configGenerator/egressQos/:eqType/:cos
 //@desc     Gets Ingress Qos Policy by eq type in the name and the COS from the name
 //@access   Private
-router.get('/:eqType/:cos', auth, async (req, res) => {
+router.get('/:eqType/:cos',  async (req, res) => {
   try {
     if (req.params.eqType.includes('7210K')) {
       req.params.eqType = '7210K';
     }
-    if (req.params.eqType === '7210M') {
-      return res.status(404).json({
-        msg: 'EQ type 7210M has no egress policies',
-      });
-    }
+   
     const policy = await EgressQos.find({
       policyName: { $regex: `.*${req.params.eqType}.*${req.params.cos}.*` },
     });
@@ -96,7 +87,7 @@ router.get('/:eqType/:cos', auth, async (req, res) => {
 //@route    GET api/configGenerator/egressQos/:eqType/:cos/:qos
 //@desc     Gets Ingress Qos Policy by eq type,cos, and qos from the name
 //@access   Private
-router.get('/:eqType/:cos/:qos', auth, async (req, res) => {
+router.get('/:eqType/:cos/:qos',  async (req, res) => {
   if (req.params.eqType.includes('7210K')) {
     req.params.eqType = '7210K';
   }

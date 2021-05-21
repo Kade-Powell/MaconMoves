@@ -1,37 +1,31 @@
-// Redux
+import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadUser } from './actions/auth';
-import setAuthToken from './utils/setAuthToken';
-//errthing else
-import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
-import Landing from './components/layout/Landing';
-import Routes from './components/routing/Routes';
 
-//CSS files, note my css should overwrite bootstrap
-import './App.scss';
+import TableRows from './components/TableRows';
+
+import Container from 'react-bootstrap/Container';
+import Table from 'react-bootstrap/Table';
 
 const App = () => {
-  useEffect(() => {
-    setAuthToken(localStorage.token);
-    store.dispatch(loadUser());
-  }, []);
-
-  return (
-    <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Navbar />
-          <Switch>
-            <Route exact path='/' component={Landing} />
-            <Route component={Routes} />
-          </Switch>
-        </Fragment>
-      </Router>
-    </Provider>
-  );
+	return (
+		<Provider store={store}>
+			<Container>
+				<Table responsive striped bordered hover>
+					<thead>
+						<tr>
+							<th>Time Slot</th>
+							<th>Name</th>
+							<th>Phone Number</th>
+						</tr>
+					</thead>
+					<tbody>
+						<TableRows schedule={store.getState('schedule').schedule} />
+					</tbody>
+				</Table>
+			</Container>
+		</Provider>
+	);
 };
 
 export default App;
